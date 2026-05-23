@@ -1,0 +1,143 @@
+* {
+  font-family: "Noto Sans Nerd Font Propo", "Font Awesome", "Meslo Nerd Font";
+/*  font-size: 10px; */
+  min-height: 0;
+  padding-right: 2px;
+  padding-left: 2px;
+  padding-bottom: 0px;
+}
+
+#waybar {
+  background: transparent;
+  color: #c6d0f5;
+}
+
+#waybar decoration {
+margin: 0;
+}
+
+#workspaces button {
+  padding: 0;
+  color: #babbf1;
+}
+
+#workspaces button.active {
+  color: #99d1db;
+}
+
+#workspaces button:hover {
+  background: #1e1e1e;
+  border-radius: 999em;
+}
+
+#workspaces button label {
+  padding: 0 0.25rem;
+  border-radius: 999em;
+}
+
+#brightness label {
+/* margin-right: 8px; */
+}
+
+.module {
+  background-color: #000000;
+  opacity: 0.75;
+  padding: 0.25rem 0.75rem;
+  margin: 0 0.25rem;
+  border-radius: 999em;
+
+  /* Based off of hyprland's defaults */
+    transition-property: opacity;
+    transition-duration: 303ms;
+    transition-timing-function: cubic-bezier(0.15, 0, 0.1, 1);
+}
+
+.module:hover {
+  opacity: 0.8;
+}
+
+#clock {
+  color: #8caaee;
+}
+
+#custom-weather {
+  color: #8caaee;
+  margin-left: 0.5rem;
+}
+
+#battery {
+  color: #a6d189;
+}
+
+#battery.charging {
+  color: #a6d189;
+}
+
+#battery.warning:not(.charging) {
+  color: #e78284;
+}
+
+#backlight {
+  color: #e5c890;
+}
+
+#pulseaudio {
+  color: #ea999c;
+}
+
+#custom-docker {
+  color: #85c1dc;
+}
+
+#custom-music {
+  color: #ca9ee6;
+  border-radius: 5px;
+}
+
+#custom-lock {
+  color: #babbf1;
+}
+
+#custom-power {
+  color: #e78284;
+}
+
+#custom-docker.docker {
+  color: #85c1dc;
+}
+
+#custom-docker.docker-none {
+  color: #737994;
+}
+
+#custom-docker.docker-error {
+  color: #e78284;
+}
+
+#custom-weather.clear {
+  color: #e5c890; /* Sunny yellow */
+}
+
+#custom-weather.cloud {
+  color: #99d1db; /* Light blue */
+}
+
+#custom-weather.rain {
+  color: #8caaee; /* Blue */
+}
+
+#custom-weather.snow {
+  color: #c6d0f5; /* White-ish */
+}
+
+#custom-weather.thunder {
+  color: #ca9ee6; /* Purple */
+}
+
+#custom-weather.fog {
+  color: #b0b4bc; /* Gray */
+}
+
+#custom-weather.error {
+  color: #e78284; /* Red */
+}

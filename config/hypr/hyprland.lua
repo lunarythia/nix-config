@@ -1,0 +1,8 @@
+require("monitors")
+require("hyprland/programs")
+require("hyprland/autostart")
+require("hyprland/env")
+require("hyprland/appearance")
+require("hyprland/rules")
+require("hyprland/config")
+require("hyprland/keybinds")

@@ -1,0 +1,12 @@
+hl.exec_cmd("pkill waybar ; waybar")
+hl.exec_cmd("pkill hyprpaper ; hyprpaper")
+
+hl.on("hyprland.start", function()
+	hl.exec_cmd("waybar")
+	hl.exec_cmd("hyprpaper")
+	hl.exec_cmd("systemctl --user start hyprpolkitagent")
+	hl.exec_cmd("systemctl --user start xdg-desktop-portal-hyprland xdg-desktop-portal")
+	hl.exec_cmd("solaar --window hide")
+	hl.exec_cmd("keepassxc --minimized")
+	hl.exec_cmd("fcitx5")
+end)
