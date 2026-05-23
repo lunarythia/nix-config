@@ -1,0 +1,1347 @@
+#+title: AmberWing’s Configuration
+#+author: AmberWing
+#+PROPERTY: header-args:emacs-lisp :tangle ./init.el :makedirp yes
+
+* Table of Contents
+:PROPERTIES:
+:TOC:      :include all :ignore this
+:END:
+:CONTENTS:
+- [[#instructions][Instructions]]
+- [[#setup][Setup]]
+- [[#misc][Misc]]
+  - [[#performance-maybe][Performance? maybe?]]
+  - [[#symlinks][Symlinks]]
+- [[#package-setup][Package setup]]
+- [[#custom][Custom]]
+- [[#ui][UI]]
+  - [[#ambria][Amb’ria]]
+  - [[#ambria-light][Amb’ria light]]
+  - [[#general][General]]
+  - [[#fonts][Fonts]]
+  - [[#themes][Themes]]
+- [[#org][Org]]
+  - [[#org][Org]]
+  - [[#org-appear][Org Appear]]
+  - [[#org-roam][Org Roam]]
+  - [[#org-tree-slide][Org Tree-slide]]
+- [[#auctex][AUCTeX]]
+- [[#pdfs][PDFs]]
+- [[#dired][Dired]]
+- [[#mail][Mail]]
+  - [[#mbsync][Mbsync]]
+  - [[#org-mime][Org-mime]]
+    - [[#formatting][Formatting]]
+- [[#code-stuffs][Code stuffs]]
+  - [[#company-mode][Company mode]]
+  - [[#git][Git]]
+  - [[#projectile][Projectile]]
+  - [[#lsp-mode][lsp-mode]]
+    - [[#lsp][lsp]]
+      - [[#c-c-etc][C, C++, etc]]
+      - [[#html][HTML]]
+      - [[#lua][Lua]]
+      - [[#latex][LaTeX]]
+    - [[#lsp-ui][lsp-ui]]
+    - [[#lsp-treemacs][lsp-treemacs]]
+    - [[#lsp-ivy][lsp-ivy]]
+  - [[#treemacs][Treemacs]]
+  - [[#yasnippet][YASnippet]]
+- [[#autocomplete][Autocomplete]]
+- [[#keybindings][Keybindings]]
+  - [[#evil-mode][Evil mode]]
+  - [[#general][General]]
+  - [[#hydra][Hydra]]
+- [[#auto-tangle][Auto-tangle]]
+- [[#fcitx5][Fcitx5]]
+- [[#performance][Performance]]
+:END:
+
+* Instructions
+
+Install [[https://github.com/plexus/chemacs2][Chemacs2]] to =~/.emacs.d=, then write the following to =~/.emacs-profiles=:
+#+begin_src emacs-lisp :tangle no
+
+  (("default" . ((user-emacs-directory . "/path/to/this/repo"))))
+
+#+end_src
+
+Open this file in Emacs and run run ~M-x org-babel-tangle~, then restart Emacs.  In the future, saving the file /should/ automatically tangle it.
+
+If something goes wrong with installing packages, you may have to manually do ~M-x package-install RET [insert name of package]~.
+
+In addition, you may need to install the package ~nerd-icons~ and run ~M-x nerd-icons-install-fonts~.
+
+On macOS it is necessary to ~brew install coreutils~.
+
+* Setup
+
+This section makes sure that it’s actually able to do stuff with the code in this file
+
+#+begin_src emacs-lisp
+
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((emacs-lisp . t)))
+
+    (setq org-confirm-babel-evaluate nil)
+
+    (with-eval-after-load 'org
+      (require 'org-tempo)
+
+      (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))))
+
+#+end_src
+
+* Misc
+
+#+begin_src emacs-lisp
+
+                                          ;  (set-input-method 'english-dvorak)
+  					; one can change their keyboard layout this way
+
+  (setq make-backup-files nil)
+
+#+end_src
+
+** Symlinks
+
+#+begin_src emacs-lisp
+
+  (setq vc-follow-symlinks nil)
+
+#+end_src
+
+* Package setup
+
+#+begin_src emacs-lisp
+
+  (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                           ("melpa" . "https://melpa.org/packages/")))
+  (require 'package)
+  (package-initialize)
+  (setq use-package-always-ensure t)
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+#+end_src
+
+* Custom
+
+#+begin_src emacs-lisp
+
+  (custom-set-variables
+   '(custom-safe-themes   '("da53441eb1a2a6c50217ee685a850c259e9974a8fa60e899d393040b4b8cc922" default))
+   '(org-hide-emphasis-markers t)
+   '(package-selected-packages
+     '(visual-fill-column visual-fill org-bullets magit general doom-themes ivy-rich which-key rainbow-delimiters doom-modeline counsel swiper ivy org-roam ##)))
+  					;  (custom-set-faces
+  					; '(bold-italic ((t (:overline t :weight bold))))
+  					; '(italic ((t (:overline t :slant italic)))))
+
+#+end_src
+
+* UI
+
+** Amb’ria
+
+#+begin_src emacs-lisp :tangle ./ambria-theme.el
+
+  (unless (package-installed-p 'autothemer)
+    (package-refresh-contents)
+    (package-install 'autothemer))
+
+  (autothemer-deftheme
+   ambria "AmberWing's theme"
+
+   ((((class color) (min-colors #xFFFFFF)))
+
+    (aw-dark        "#140023")
+    (aw-dark-2      "#1d0432")
+    (aw-dark-3      "#210038")
+    (aw-dark-4      "#2d004d")
+    (aw-dark-5      "#300055")
+    (aw-dark-6      "#3e006b")
+    (aw-light       "#fccece")
+    (aw-light-2     "#e3779d")
+    (aw-light-3     "#d23e79")
+    (aw-light-4     "#d2356b")
+    (aw-2-light     "#d97dfb")
+    (aw-2-light-2   "#ce6ff0")
+    (aw-2-light-3   "#c243e2")
+    (aw-2-light-4   "#b73ada")
+    (aw-2-light-5   "#a335ce")
+    (aw-2-light-6   "#972ac5")
+    (aw-accent      "#38005d")
+    (aw-builtin     "#e683ff")
+    (aw-comments    "#ec8787")
+    (aw-string      "#be69ff")
+    (aw-vars        "#f835ff")
+    )
+
+   ((default                   (:foreground aw-light :background aw-dark))
+    (fringe                    (:background aw-dark))
+    (cursor                    (:background aw-light))
+    (region                    (:background aw-accent))
+    (mode-line                 (:background aw-dark-4))
+    (mode-line-inactive        (:background aw-dark-3))
+    (doom-modeline-bar         (:background aw-light-4))
+    (font-lock-builtin-face    (:foreground aw-builtin))
+    (font-lock-comment-face    (:foreground aw-comments))
+    (font-lock-constant-face   (:foreground aw-vars))
+    (font-lock-string-face     (:foreground aw-string))
+    (header-line (:foreground aw-light :background aw-dark-5))
+    (highlight (:foreground aw-light :background aw-2-light-6))
+
+    ;; Ivy
+    (ivy-highlight-face (:background aw-dark-4))
+
+    ;; Magit
+    (magit-section-highlight   (:background aw-dark-4))
+
+    ;; Mu4e
+    (mu4e-highlight-face (:background aw-dark-4))
+    (mu4e-compose-separator-face (:foreground aw-comments))
+
+    ;; Org mode
+    (org-block              (:background aw-dark-2))
+    (org-block-begin-line   (:foreground aw-comments :background aw-dark-2))
+    (org-block-end-line     (:foreground aw-comments :background aw-dark-2))
+    (org-document-title     (:foreground aw-2-light))
+    (org-ellipsis           (:foreground nil :underline nil))
+    (org-level-1            (:foreground aw-2-light-2))
+    (org-level-2            (:foreground aw-2-light-3))
+    (org-level-3            (:foreground aw-2-light-4))
+    (org-level-4            (:foreground aw-light-2))
+    (org-level-5            (:foreground aw-light-3))
+    (org-level-6            (:foreground aw-light-4))
+    (org-level-7            (:foreground aw-2-light-5))
+    (org-level-8            (:foreground aw-2-light-6))
+    (org-time (:foreground nil :inherit nil))
+    ))
+
+  (provide-theme 'ambria)
+
+#+end_src
+
+** Amb’ria light
+
+#+begin_src emacs-lisp :tangle ./ambria-light-theme.el
+
+  (unless (package-installed-p 'autothemer)
+    (package-refresh-contents)
+    (package-install 'autothemer))
+
+  (autothemer-deftheme
+   ambria-light "AmberWing's theme (light)"
+
+   ((((class color) (min-colors #xFFFFFF)))
+
+    (aw-dark        "#140023")
+    (aw-dark-2      "#1d0432")
+    (aw-dark-3      "#210038")
+    (aw-dark-4      "#2d004d")
+    (aw-dark-5      "#300055")
+    (aw-dark-6      "#3e006b")
+    (aw-light       "#fccece")
+    (aw-light-2     "#e3779d")
+    (aw-light-3     "#d23e79")
+    (aw-light-4     "#d2356b")
+    (aw-2-light     "#d97dfb")
+    (aw-2-light-2   "#ce6ff0")
+    (aw-2-light-3   "#c243e2")
+    (aw-2-light-4   "#b73ada")
+    (aw-2-light-5   "#a335ce")
+    (aw-2-light-6   "#972ac5")
+    (aw-accent      "#ff95b5")
+    (aw-builtin     "#e683ff")
+    (aw-comments    "#ec8787")
+    (aw-string      "#be69ff")
+    (aw-vars        "#f835ff")
+    )
+
+   ((default                   (:foreground aw-dark :background aw-light))
+    (fringe                    (:background aw-light))
+    (cursor                    (:background aw-dark))
+    (region                    (:background aw-accent))
+    (mode-line                 (:background aw-2-light))
+    (mode-line-inactive        (:background aw-2-light-2))
+    (doom-modeline-bar         (:background aw-dark-6))
+    (font-lock-builtin-face    (:foreground aw-builtin))
+    (font-lock-comment-face    (:foreground aw-comments))
+    (font-lock-constant-face   (:foreground aw-vars))
+    (font-lock-string-face     (:foreground aw-string))
+    (header-line (:foreground aw-dark :background aw-2-light-3))
+    (highlight (:foreground aw-light :background aw-dark-3))
+
+    ;; Ivy
+    (ivy-highlight-face (:background aw-light-2))
+
+    ;; Magit
+    (magit-section-highlight   (:background aw-light-2))
+
+    ;; Mu4e
+    (mu4e-highlight-face (:background aw-light-2))
+    (mu4e-compose-separator-face (:foreground aw-comments))
+
+    ;; Org mode
+    (org-block              (:background aw-dark-2))
+    (org-block-begin-line   (:foreground aw-comments :background aw-dark-2))
+    (org-block-end-line     (:foreground aw-comments :background aw-dark-2))
+    (org-document-title     (:foreground aw-2-light))
+    (org-ellipsis           (:foreground nil :underline nil))
+    (org-level-1            (:foreground aw-2-light-2))
+    (org-level-2            (:foreground aw-2-light-3))
+    (org-level-3            (:foreground aw-2-light-4))
+    (org-level-4            (:foreground aw-light-2))
+    (org-level-5            (:foreground aw-light-3))
+    (org-level-6            (:foreground aw-light-4))
+    (org-level-7            (:foreground aw-2-light-5))
+    (org-level-8            (:foreground aw-2-light-6))
+    (org-time (:foreground nil :inherit nil))
+    ))
+
+  (provide-theme 'ambria)
+
+#+end_src
+** General
+
+#+begin_src emacs-lisp
+  (use-package nerd-icons
+    :custom (nerd-icons-font-family "CaskaydiaCove Nerd Font"))
+
+  (use-package doom-modeline
+    :ensure t
+    :custom (doom-modeline-modal-modern-icon 'nil)
+    :init (doom-modeline-mode t))
+
+  (setq visible-bell t)   ; use visible bell
+
+  (column-number-mode)    ; add column numbers
+
+                                          ; display line numbers
+  (global-display-line-numbers-mode t)
+  (setq display-line-numbers 't)
+
+                                          ; hide line numbers for certain modes
+  (dolist (mode '(org-mode-hook
+                  term-mode-hook
+                  shell-mode-hook
+                  treemacs-mode-hook
+                  eshell-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+  (setq inhibit-splash-screen t)   ; get rid of that nasty splash screen
+
+  (tool-bar-mode -1)     ; disable toolbar
+  (tooltip-mode -1)      ; disable tooltips
+  (set-fringe-mode 10)   ; a bit more room
+
+  ;; disable menubar except on macOS
+  ;; because it's less obtrusive
+  (when (not (eq system-type 'darwin))
+    (menu-bar-mode -1))
+  (scroll-bar-mode -1)   ; disable scrollbar
+
+                                          ; Word wrapping
+  (global-visual-line-mode 1)
+
+                                          ; Rainbow delimiters
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
+
+                                          ; Rainbow mode (show colours)
+
+  (use-package rainbow-mode
+    :hook (prog-mode . rainbow-mode))
+
+#+end_src
+
+** Fonts
+
+*Required fonts:*
++ Fira Code
++ PT Sans
+
+#+begin_src emacs-lisp
+
+  (defun aw/font-setup ()
+    (set-frame-font "Fira Code 12" nil t)
+    (set-face-attribute 'fixed-pitch nil :font "Fira Code")
+    (set-face-attribute 'variable-pitch nil :font "PT Sans" :height 150))
+
+  (if (daemonp)
+      (add-hook 'after-make-frame-functions
+                (lambda (frame)
+                  (setq doom-modeline-icon t)
+                  (with-selected-frame frame
+                    (aw/font-setup))))
+    (aw/font-setup))
+
+#+end_src
+
+** Themes
+
+Use Doom themes
+
+#+begin_src emacs-lisp
+
+  (setq custom-theme-directory user-emacs-directory)
+
+  (use-package doom-themes
+    :config
+    (setq doom-themes-enable-bold t
+          doom-themes-enable-italic t)
+    (doom-themes-visual-bell-config)
+    (doom-themes-neotree-config)
+    (setq doom-themes-treemacs-theme "doom-colors")
+    (doom-themes-treemacs-config)
+    (doom-themes-org-config))
+
+  (load-theme 'ambria t)
+
+#+end_src
+
+* Org
+
+** Org
+
+#+begin_src emacs-lisp
+
+  (defun aw/org-mode-setup ()
+    (org-indent-mode)
+    (variable-pitch-mode))
+
+  (defun aw/org-font-setup ()
+    (with-eval-after-load 'org-faces
+                                          ; Change font of title
+      (set-face-attribute 'org-document-title nil :font "Roboto Slab" :weight 'bold :height 1.65)
+                                          ; Make the Heading fonts a different size
+      (dolist (face '((org-level-1 . 1.55)
+                      (org-level-2 . 1.525)
+                      (org-level-3 . 1.5)
+                      (org-level-4 . 1.475)
+                      (org-level-5 . 1.45)
+                      (org-level-6 . 1.4)
+                      (org-level-7 . 1.35)
+                      (org-level-8 . 1.3)))
+        (set-face-attribute (car face) nil :font "Roboto Slab" :height (cdr face)))
+                                          ; Make sure some things are still monospaced
+      (set-face-attribute 'org-block nil :inherit 'fixed-pitch)
+      (set-face-attribute 'org-block-begin-line nil :inherit 'fixed-pitch)
+      (set-face-attribute 'org-block-end-line nil :inherit 'fixed-pitch)
+      (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+      (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+      (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+      (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+      (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+      (set-face-attribute 'org-table nil :inherit 'fixed-pitch)))
+
+  (use-package org
+    :hook (org-mode . aw/org-mode-setup)
+    :bind (("C-o" . org-open-at-point))
+    :config
+    (setq org-ellipsis " ▼")
+    (setq org-hide-emphasis-markers t)
+    (setq org-pretty-entities t)
+    (setq org-startup-with-inline-images t)
+    (setq org-agenda-start-with-log-mode t)
+    (setq org-log-done 'time)
+    (setq org-log-into-drawer t)
+    (setq org-agenda-files
+          '("~/orgroam/20220109100907.org"
+            "~/orgroam/20220109114152.org"
+            "~/orgroam/20220106002944.org"))
+    (setq org-agenda-span 31)
+    (setq org-refile-targets
+          '(("~/orgroam/20220109130559.org" :maxlevel . 1)
+            ("~/orgroam/20220106002944.org" :maxlevel . 1)
+            ("~/orgroam/20220109100907.org" :maxlevel . 1)
+            ("~/orgroam/20220109131107.org" :maxlevel . 1)))
+                                          ; Make sure that all of the org files are saved every time you refile something
+    (advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+    (setq org-capture-templates
+          '(("t" "Task" entry (file+olp "~/orgroam/20220109100907.org" "Inbox")
+             "* TODO %?\n %U\n %a\n %i" :empty-lines 1)
+            ("j" "Journal" entry (file+olp+datetree "~/orgroam/20220109145805.org")
+             "\n* %<%I:%M %p> - Journal\n\n%?\n\n"
+             :clock-in :clock-resume
+             :empty-lines 1)))
+
+    (aw/org-font-setup))
+
+                                          ; center org mode stuff
+  (defun aw/org-mode-visual-fill ()
+    (setq visual-fill-column-width 120
+          visual-fill-column-center-text t)
+    (visual-fill-column-mode 1))
+
+  (use-package visual-fill-column
+    :hook (org-mode . aw/org-mode-visual-fill))
+
+  (use-package org-bullets
+    :hook (org-mode . org-bullets-mode)
+    :custom
+    (org-bullets-bullet-list '("❀" "❁" "♡" "♥" "●" "○" "▲")))
+
+                                          ; change bullets to look like ✧
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "✧"))))))
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([+]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "✧"))))))
+
+#+end_src
+
+** Org Appear
+This package shows the emphasis marks only when the cursor is on the emphasized words.
+
+#+begin_src emacs-lisp
+
+  (use-package org-appear
+    :hook (org-mode . org-appear-mode)
+    :config
+    (setq org-appear-autolinks t)
+    (setq org-appear-autosubmarkers t)
+    (setq org-appear-autoentities t))
+
+#+end_src
+
+** Org Roam
+
+Note that the binding for ~org-roam-buffer-toggle~ is commented out here because I want to make sure that the keybinding gets loaded, so I will use general to define it instead.
+
+#+begin_src emacs-lisp
+
+  (use-package org-roam
+    :after org
+    :commands org-roam-node-find
+    :ensure t
+    :custom
+    (org-roam-directory "~/orgroam")
+    (org-roam-capture-templates
+     '(("d" "default" plain
+        "%?"
+        :if-new (file+head "%<%Y%m%d%H%M%S>.org" "#+title: ${title}\n")
+        :unnarrowed t)))
+    :bind (;("C-C n l" . org-roam-buffer-toggle)
+           ("C-c n f" . org-roam-node-find)
+           ("C-c n i" . org-roam-node-insert))
+    :config
+    (org-roam-setup))
+
+#+end_src
+
+** Org Tree-slide
+
+#+begin_src emacs-lisp
+
+  (use-package org-tree-slide
+    :commands org-tree-slide-mode
+    :custom
+    (org-tree-slide-in-effect n)
+    (org-tree-slide-activate-message "Presentation started.")
+    (org-tree-slide-deactivate-message "Presentation finished")
+    (org-tree-slide-breadcrumbs " » ")
+    (org-image-actual-width nil))
+
+#+end_src
+
+* AUCTeX
+
+For (Lua)(La)TeX editing.
+
+#+begin_src emacs-lisp
+
+  (use-package tex
+    :ensure auctex
+    :custom
+    (TeX-auto-save t)
+    (TeX-parse-self t)
+    (TeX-master t)
+    (TeX-engine 'luatex)
+    (TeX-command-default "LaTeXMk")
+    (TeX-PDF-mode t)
+    (TeX-source-correlate-method 'synctex)
+    (TeX-source-correlate-mode t)
+    (TeX-source-correlate-start-server t)
+    (TeX-view-program-selection '((output-pdf "PDF Tools")))
+    :config
+    (let ((miktex-path (expand-file-name "~/bin")))
+      (add-to-list 'exec-path miktex-path)
+      (setenv "PATH" (concat miktex-path ":" (getenv "PATH"))))
+    (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
+    
+    ;; :hook (LaTeX-mode .
+    ;;                   (lambda ()
+    ;;                     (push (list 'output-pdf "Okular")
+    ;;                           TeX-view-program-selection))))
+#+end_src
+
+* PDFs
+
+#+begin_src emacs-lisp
+
+  (use-package pdf-tools
+    :defer t
+    :commands (pdf-loader-install)
+    :mode ("\\.pdf\\'" . pdf-view-mode)
+    :bind (:map pdf-view-mode-map
+  	      ("j" . pdf-view-next-line-or-next-page)
+  	      ("k" . pdf-view-previous-line-or-previous-page))
+    :init (pdf-loader-install)
+    :config (add-to-list 'revert-without-query ".pdf"))
+
+  (add-hook 'pdf-view-mode-hook #'(lambda () (interactive) (display-line-numbers-mode -1)))
+
+#+end_src
+
+* Dired
+
+File management.
+
+#+begin_src emacs-lisp
+
+  (setq delete-by-moving-to-trash t)
+  (use-package dired
+    :ensure nil
+    :commands dired dired-jump
+    :config
+    (setq dired-kill-when-opening-new-dired-buffer t)
+    (setq dired-auto-revert-buffer t)
+    :custom ((dired-listing-switches "-Alo --group-directories-first")
+             (dired-dwim-target t)))
+
+  ;; Because macOS does not recongise the switch --group-directories-first
+  ;; brew install coreutils is required
+  (when (eq system-type 'darwin)
+    (setq insert-directory-program "/opt/homebrew/bin/gls"))
+
+#+end_src
+
+* Mail
+
+Use mu4e to manage mail
+
+#+begin_src emacs-lisp :tangle no
+
+  (use-package mu4e
+    :ensure nil
+    :load-path "/usr/share/emacs/site-lisp/mu4e"
+    :commands mu4e
+    :config
+    (setq mu4e-view-show-addresses t)
+    (setq mu4e-compose-format-flowed t)
+    (setq mu4e-completing-read-function 'ivy-completing-read)
+    (setq mu4e-change-filenames-when-moving t)
+    (setq mu4e-get-mail-command "mbsync -a -c ~/.config/mbsync/mbsyncrc")
+    (setq mu4e-maildir "~/Mail")
+    (setq mu4e-contexts
+          (list 
+           (make-mu4e-context
+            :name "personal"
+            :match-func
+            (lambda (msg)
+              (when msg
+                (string-prefix-p "/gmail-main" (mu4e-message-field msg :maildir))))
+            :vars '((user-mail-address       . "[redacted]@gmail.com")
+                    (user-full-name          . "[redacted]")
+                    (mu4e-drafts-folder      . "/gmail-main/[Gmail]/Drafts")
+                    (mu4e-sent-folder        . "/gmail-main/[Gmail]/Sent Mail")
+                    (mu4e-refile-folder      . "/gmail-main/[Gmail]/All Mail")
+                    (mu4e-trash-folder       . "/gmail-main/[Gmail]/Trash")))
+           (make-mu4e-context
+            :name "school"
+            :match-func
+            (lambda (msg)
+              (when msg
+                (string-prefix-p "/school" (mu4e-message-field msg :maildir))))
+            :vars '((user-mail-address       . "[redacted]@[redacted]")
+                    (user-full-name          . "[redacted]")
+                    (mu4e-drafts-folder      . "/school/[Gmail]/Drafts")
+                    (mu4e-sent-folder        . "/school/[Gmail]/Sent Mail")
+                    (mu4e-refile-folder      . "/school/[Gmail]/All Mail")
+                    (mu4e-trash-folder       . "/school/[Gmail]/Trash")))))
+    (setq mail-specify-envelope-from t)
+    (setq message-sendmail-envelope-from 'header)
+    (setq mail-envelope-from 'header)
+    (setq sendmail-program (executable-find "msmtp"))
+    (setq send-mail-function #'sendmail-send-it)
+    (add-to-list 'mu4e-view-actions
+                 '("open in browser" . mu4e-action-view-in-browser) t))
+
+#+end_src
+
+** Mbsync
+
+This is the actual thing that will be doing the email syncing
+~:tangle /home/[redacted]/.config/mbsync/mbsyncrc~
+
+#+begin_src conf :tangle no :makedirp yes
+
+  IMAPAccount personal
+  Host imap.gmail.com
+  User [redacted]@gmail.com
+  PassCmd "pass show google/gmail-main | head -n 1"
+  SSLType IMAPS
+  CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+  IMAPStore personal-remote
+  Account personal
+
+  MaildirStore personal-local
+  Subfolders Verbatim
+  Path ~/Mail/gmail-main/
+  Inbox ~/Mail/gmail-main/Inbox
+
+  Channel personal
+  Master :personal-remote:
+  Slave :personal-local:
+  Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/All Mail" "[Gmail]/Trash"
+  Create Both
+  SyncState *
+
+  IMAPAccount school
+  Host imap.gmail.com
+  User [redacted]@[redacted]
+  PassCmd "pass show google/school | head -n 1"
+  SSLType IMAPS
+  CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+  IMAPStore school-remote
+  Account school
+
+  MaildirStore school-local
+  Subfolders Verbatim
+  Path ~/Mail/school/
+  Inbox ~/Mail/school/Inbox
+
+  Channel school
+  Master :school-remote:
+  Slave :school-local:
+  Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/All Mail" "[Gmail]/Trash"
+  Create Both
+  SyncState *
+
+#+end_src
+
+** Org-mime
+
+This allows us to put formatting in our emails rather than just having plain-text.
+
+#+begin_src emacs-lisp :tangle no
+
+  (use-package org-mime
+    :after mu4e
+    :config
+    (setq org-mime-export-options '(
+                                    :section-numbers nil
+                                    :with-author nil
+                                    :with-toc nil)))
+
+  (add-hook 'message-send-hook 'org-mime-htmlize)
+
+#+end_src
+
+*** Formatting
+
+This gives us formatted email
+
+#+begin_src emacs-lisp :tangle no
+
+  (add-hook 'org-mime-html-hook
+            (lambda ()
+              (org-mime-change-element-style
+               "p" (format "color: %s"
+                           "#140023"))))
+  (add-hook 'org-mime-html-hook
+            (lambda ()
+              (org-mime-change-element-style
+               "h1" (format "color: %s"
+                            "#140023"))))
+  (add-hook 'org-mime-html-hook
+            (lambda ()
+              (org-mime-change-element-style
+               "h2" (format "color: %s"
+                            "#140023"))))
+  (add-hook 'org-mime-html-hook
+            (lambda ()
+              (org-mime-change-element-style
+               "h3" (format "color: %s"
+                            "#140023"))))
+  (add-hook 'org-mime-html-hook
+            (lambda ()
+              (org-mime-change-element-style
+               "h4" (format "color: %s"
+                            "#140023"))))
+  (add-hook 'org-mime-html-hook
+            (lambda ()
+              (org-mime-change-element-style
+               "h5" (format "color: %s"
+                            "#140023"))))
+  (add-hook 'org-mime-html-hook
+            (lambda ()
+              (org-mime-change-element-style
+               "h6" (format "color: %s"
+                            "#140023"))))
+
+#+end_src
+
+* Code stuffs
+
+** Company mode
+
+This gives us intellisense
+
+#+begin_src emacs-lisp
+
+  (use-package company
+    :after lsp-mode
+    :hook (lsp-mode . company-mode)
+    :bind (:map company-active-map
+                ("<tab>" . company-complete-common-or-cycle))
+;;    (:map lsp-mode-map
+;;          ("<tab>" . company-indent-or-complete-common))
+    :custom
+    (company-minimum-prefix-length 1)
+    (company-idle-delay 0.0))
+
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
+
+#+end_src
+
+** Git
+
+#+begin_src emacs-lisp
+
+  (use-package magit
+    :commands (magit-status magit-get-current-branch)
+    :custom
+    (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+    :config
+    (setq transient-default-level 5))
+
+#+end_src
+
+** Projectile
+
+#+begin_src emacs-lisp
+
+  (use-package projectile
+    :custom
+    (projectile-auto-cleanup-known-projects t)
+    :config (projectile-mode))
+
+#+end_src
+
+** lsp-mode
+
+lsp-mode allows us to have IDE-like features inside emacs.
+
+*** lsp
+
+#+begin_src emacs-lisp
+
+  (defun efs/lsp-mode-setup ()
+    (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file))
+    (lsp-headerline-breadcrumb-mode))
+
+  (use-package lsp-mode
+    :commands (lsp lsp-deferred)
+    :hook (lsp-mode . efs/lsp-mode-setup)
+    :init
+    (setq lsp-keymap-prefix "C-c l")
+    :config
+    (lsp-enable-which-key-integration t)
+    (setq lsp-clients-typescript-tls-path "~/.nvm/versions/node/v17.3.0/bin/typescript-language-server"))
+
+#+end_src
+
+**** C, C++, etc
+
+#+begin_src emacs-lisp
+
+  (add-hook 'c-mode-hook 'lsp)
+  (add-hook 'c++-mode-hook 'lsp)
+
+#+end_src
+
+**** HTML
+
+#+begin_src emacs-lisp
+
+  (use-package web-mode
+    :mode ("\\.html\\'" "\\.css\\'" "\\.js\\'" "\\.njk\\'")
+    :hook (web-mode . lsp-deferred)
+    :custom
+    (web-mode-css-indent-offset 2))
+
+  (use-package scss-mode
+    :mode "\\.scss\\'"
+    :hook (scss-mode . lsp-deferred))
+
+#+end_src
+
+**** Lua
+
+#+begin_src emacs-lisp
+
+  (use-package lua-mode
+  :mode ("\\.lua\\'")
+  :hook (lua-mode . lsp-deferred))
+
+#+end_src
+
+**** LaTeX
+# 
+#+begin_src emacs-lisp
+
+  (use-package lsp-latex
+    :ensure t
+    :hook
+    (latex-mode . lsp)
+    (LaTeX-mode . lsp)
+    (bibtex-mode . lsp)
+    (tex-mode . lsp)
+    :config
+    (setq lsp-latex-texlab-executable "texlab"))
+
+#+end_src
+
+*** lsp-ui
+
+#+begin_src emacs-lisp
+
+  (use-package lsp-ui
+    :hook (lsp-mode . lsp-ui-mode)
+    :custom
+    (lsp-ui-doc-position 'bottom))
+
+#+end_src
+
+*** lsp-treemacs
+
+#+begin_src emacs-lisp
+
+  (use-package lsp-treemacs
+    :after lsp
+    :config
+    (lsp-treemacs-sync-selected-window))
+
+#+end_src
+
+*** lsp-ivy
+
+#+begin_src emacs-lisp
+
+  (use-package lsp-ivy
+    :after lsp)
+
+#+end_src
+
+** Treemacs
+
+Treemacs gives us a project file view.
+
+#+begin_src emacs-lisp
+
+  (use-package treemacs
+    :config
+    (pcase (cons (not (null (executable-find "git")))
+                 (not (null treemacs-python-executable)))
+      (`(t . t)
+       (treemacs-git-mode 'deferred))
+      (`(t . _)
+       (treemacs-git-mode 'simple)))
+    (treemacs-hide-gitignored-files-mode nil)
+    (treemacs-follow-mode t)
+    (treemacs-project-follow-mode t)
+    (treemacs-filewatch-mode t))
+
+  (use-package treemacs-evil
+    :after (treemacs evil)
+    :ensure t)
+
+  (use-package treemacs-projectile
+    :after (treemacs projectile)
+    :ensure t)
+
+  (use-package treemacs-icons-dired
+    :hook (dired-mode . treemacs-icons-dired-enable-once)
+    :ensure t)
+
+  (use-package treemacs-magit
+    :after (treemacs magit)
+    :ensure t)
+
+#+end_src
+
+** YASnippet
+
+Provides autocomplete snippets (e.g. ~if~, ~for~).  ~yasnippet-snippets~ provides the actual snippets itself.
+
+#+begin_src emacs-lisp
+
+  (use-package yasnippet
+    :after lsp-mode
+    :hook (lsp-mode . yas-minor-mode)
+    :config
+    (yas-reload-all))
+
+  (use-package yasnippet-snippets
+    :after (yas-minor-mode))
+
+#+end_src
+
+* Autocomplete
+
+#+begin_src emacs-lisp
+
+  (use-package counsel
+    :bind (("M-x" . counsel-M-x)
+           ("C-x b" . counsel-ibuffer)
+           ("C-x C-f" . counsel-find-file)
+           :map minibuffer-local-map
+           ("C-r" . 'counsel-minibuffer-history))
+    :config
+    (setq ivy-initial-inputs-alist nil))
+
+                                          ; ivy autocomplete
+  (use-package ivy
+    :diminish
+    :defer 0
+    :bind (("C-s" . swiper)
+           :map ivy-minibuffer-map
+           ("TAB" . ivy-alt-done)
+           ("C-l" . ivy-alt-done)
+           ("C-j" . ivy-next-line)
+           ("C-k" . ivy-previous-line)
+           :map ivy-switch-buffer-map
+           ("C-k" . ivy-previous-line)
+           ("C-l" . ivy-done)
+           ("C-d" . ivy-switch-buffer-kill)
+           :map ivy-reverse-i-search-map
+           ("C-k" . ivy-previous-line)
+           ("C-d" . ivy-reverse-i-search-kill))
+    :custom (ivy-use-selectable-prompt t))
+  (ivy-mode 1)
+
+  (with-eval-after-load 'ivy
+    (use-package ivy-rich
+      :after ivy)
+    (ivy-rich-mode 1))
+
+#+end_src
+
+* Keybindings
+
+#+begin_src emacs-lisp
+
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+  (use-package which-key
+    :defer 0
+    :diminish which-key-mode
+    :config
+    (which-key-mode)
+    (setq which-key-idle-delay 0))
+
+#+end_src
+
+** Evil mode
+This gives us vim-like stuff
+
+#+begin_src emacs-lisp
+
+  (use-package evil
+    :init
+    (setq evil-want-keybinding nil)
+    (setq evil-want-integration t)
+    :config
+    (evil-mode 1)
+    (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+
+    (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+    (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+    (evil-set-initial-state 'messages-buffer-mode 'normal)
+    (evil-set-initial-state 'dashboard-mode 'normal)
+    (evil-set-initial-state 'pdf-view-mode 'emacs))
+
+  (use-package evil-collection
+    :after evil
+    :config
+    (evil-collection-init))
+
+  ;; Use relative line numbers when in normal, visual mode;
+  ;; absolute when in insert mode or when using evil-ex (:command)
+  (setq display-line-numbers-type 'relative)
+  (add-hook 'evil-normal-state-entry-hook (lambda ()
+  					  (when display-line-numbers
+  					    (setq display-line-numbers 'relative))))
+  (add-hook 'evil-visual-state-entry-hook (lambda ()
+  					  (when display-line-numbers
+  					    (setq display-line-numbers 'relative))))
+  (add-hook 'evil-insert-state-entry-hook (lambda ()
+  					  (when display-line-numbers
+  					    (setq display-line-numbers t))))
+  (advice-add 'evil-ex :before
+              (lambda (&rest _)
+  	      (setq aw/prev-display-line-numbers display-line-numbers)
+  	      (when display-line-numbers (setq display-line-numbers t))))
+  (add-hook 'minibuffer-exit-hook (lambda ()
+  				  (let ((target-buffer (window-buffer (minibuffer-selected-window))))
+  				    (with-current-buffer target-buffer
+  				      (setq display-line-numbers aw/prev-display-line-numbers)))))
+
+#+end_src
+
+** General
+
+#+begin_src emacs-lisp
+
+  (defun aw/config () (interactive)
+         (find-file (expand-file-name "README.org" user-emacs-directory)))
+
+  (defun aw/scale () (interactive)
+         (if (derived-mode-p 'pdf-view-mode)
+        	   (hydra-pdf-scale/body)
+        	 (hydra-text-scale/body)))
+
+  ;; rebind keys
+  (use-package general
+    :after hydra
+    :config
+    (general-create-definer aw/leadkey
+      :keymaps 'override
+      :prefix "C-a")
+    (general-def
+      :keymaps 'override
+      :states '(normal motion visual) "SPC"
+      (general-simulate-key "C-a"))
+    (aw/leadkey
+      "" 'nil
+      "SPC" '(counsel-M-x :which-key "command")
+
+      "a" '(org-agenda :which-key "agenda")
+
+      "d" '(dired :which-key "dired")
+
+      ;;      "e" '(mu4e :which-key "mu4e")
+
+      "e" '(aw/config :which-key "config")
+
+      "g" '(magit-status :which-key "git")
+
+      "p" '(projectile-command-map :which-key "project")
+      )
+
+    (aw/leadkey
+      :infix "b"
+      "" '(:which-key "buffer")
+      "k" '(kill-current-buffer :which-key "kill buffer")
+      "b" '(counsel-switch-buffer :which-key "switch buffer"))
+
+    (aw/leadkey
+      :infix "c"
+      "" '(:which-key "capture")
+      "j" '((lambda () (interactive) (org-capture nil "j")) :which-key "journal")
+      "t" '((lambda () (interactive) (org-capture nil "t")) :which-key "task"))
+
+    (aw/leadkey
+      :infix "f"
+      "" '(:which-key "file")
+      "d" '(dired-jump :which-key "directory")
+      "f" '(find-file :which-key "open file")
+      "s" '(save-buffer :which-key "save buffer"))
+
+    (aw/leadkey
+      :infix "h"
+      "" '(:which-key "help")
+      "f" '(describe-function :which-key "describe function")
+      "k" '(describe-key :which-key "describe keybinding")
+      "m" '(describe-mode :which-key "describe mode")
+      "M" '(describe-keymap :which-key "describe keymap")
+      "v" '(describe-variable :which-key "describe variable"))
+
+    (aw/leadkey
+      :infix "r"
+      "" '(:which-key "org roam")
+      "f" '(org-roam-node-find :which-key "find node")
+      "i" '(org-roam-node-insert :which-key "insert node"))
+
+    (aw/leadkey
+      :infix "t"
+      "" '(:which-key "toggle / change")
+      "i" '(set-input-method :which-key "input method")
+      "t" '(counsel-load-theme :which-key "choose theme")
+      "s" '(aw/scale :which-key "scale text"))
+
+    (aw/leadkey
+      :infix "w"
+      "" '(:which-key "window")
+      "c" '(delete-window :which-key "close window")
+      "h" '(split-window-right :which-key "horizontal split")
+      "o" '(delete-other-windows :which-key "close other windows")
+      "v" '(split-window-below :which-key "vertical split"))
+
+    ;; (general-create-definer aw/leadkey/mu4e
+    ;;   :states 'normal
+    ;;   :keymaps 'mu4e-compose-mode-map
+    ;;   :prefix "SPC m"
+    ;;   :global-prefix "C-a m")
+    ;; (aw/leadkey/mu4e
+    ;;   "" '(:which-key "mu4e compose")
+    ;;   "f" '(message-send-and-exit :which-key "finish")
+    ;;   "c" '(mu4e-message-kill-buffer :which-key "cancel"))
+
+    ;; Org-specific bindings
+    (general-create-definer aw/leadkey/org
+      :states 'normal
+      :keymaps 'org-mode-map
+      :prefix "SPC m"
+      :global-prefix "C-a m")
+    (aw/leadkey/org
+      :major-modes '(org-mode)
+      "" '(:which-key "org")
+      "b" '(org-mark-ring-goto :which-key "back")
+      "o" '(org-open-at-point :which-key "open")
+      "t" '(org-babel-tangle :which-key "tangle"))
+    (general-create-definer aw/leadkey/org/capture
+      :states 'normal
+      :keymaps 'org-capture-mode
+      :prefix "SPC m"
+      :global-prefix "C-a m")
+    (aw/leadkey/org/capture
+      :major-modes '(org-capture-mode)
+      "" '(:which-key "capture")
+      "c" '(org-capture-kill :which-key "cancel")
+      "f" '(org-capture-finalize :which-key "finish"))
+
+    ;; LaTeX-specific bindings
+    (general-create-definer aw/leadkey/latex
+      :states 'normal
+      :keymaps '(LaTeX-mode-map TeX-mode-map)
+      :prefix "SPC m"
+      :global-prefix "C-a m")
+    (aw/leadkey/latex
+      :major-modes '(latex-mode LaTeX-mode tex-mode TeX-mode)
+      "" '(:which-key "LaTeX")
+      "c" '((lambda () (interactive) (save-buffer) (TeX-command "LaTeXMk" 'TeX-master-file)) :which-key "compile")
+      "C" '(TeX-command-master :which-key "command")
+      "e" '(LaTeX-environment :which-key "make environment")
+      "v" '(TeX-view :which-key "view"))
+
+    ;; With-editor-specific bindings
+    (general-create-definer aw/leadkey/witheditor
+      :states 'normal
+      :keymaps 'with-editor-mode-map
+      :prefix "SPC m"
+      :global-prefix "C-a m")
+    (aw/leadkey/witheditor
+      :major-modes '(with-editor-mode)
+      "" '(:which-key "with-editor")
+      "c" '(with-editor-cancel :which-key "cancel")
+      "f" '(with-editor-finish :which-key "finish"))
+    (general-define-key
+     "C-x b" 'counsel-switch-buffer)
+    (general-define-key
+     "C-C n f" 'org-roam-node-find)
+
+    ;; Dired-specific bindings
+    (general-define-key
+     :states 'motion
+     :keymaps 'dired-mode-map
+     "h" 'dired-up-directory
+     "l" 'dired-find-file
+     "RET" 'dired-find-file)
+
+    ;; Ivy-specific bindings
+    (general-define-key
+     :keymaps 'ivy-minibuffer-map
+     "M-RET" 'ivy-immediate-done))
+
+#+end_src
+
+** Hydra
+
+Hydra allows you to hit a key and then within a certain timeframe, hit other keys once or multiple times to quickly cycle through or toggle things. For example, after hitting ~SPC t s~, within 5 seconds, you can hit ~j~ and ~k~ to zoom in or out multiple times.
+
+#+begin_src emacs-lisp
+
+  (use-package hydra)
+
+  (defhydra hydra-text-scale (:timeout 5)
+    ("j" text-scale-increase "in")
+    ("k" text-scale-decrease "out")
+    ("0" (text-scale-set 0) "reset")
+    ("f" nil "exit" :exit t))
+
+  (defhydra hydra-pdf-scale (:timeout 5)
+    ("j" pdf-view-enlarge "in")
+    ("k" pdf-view-shrink "out")
+    ("0" pdf-view-fit-page-to-window "reset")
+    ("f" nil "exit" :exit t))
+
+  (defhydra hydra-change-window (:timeout 5)
+    ("j" evil-window-next "clockwise")
+    ("k" evil-window-prev "counterclockwise")
+    ("f" nil "exit" :exit t))
+  (aw/leadkey
+    "ww" '(hydra-change-window/body :which-key "change window"))
+
+#+end_src
+
+* Auto-tangle
+
+This will automatically tangle the config
+
+#+begin_src emacs-lisp
+
+  (defun aw/org-babel-tangle-config ()
+    (when (string-equal (buffer-file-name)
+                        (expand-file-name "README.org" user-emacs-directory))
+
+      (let ((org-confirm-babel-evaluate nil))
+        (org-babel-tangle))))
+
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'aw/org-babel-tangle-config)))
+
+#+end_src
+
+* Fcitx5
+
+Make Emacs work with ~fcitx5~ on Linux.  You should also install ~emacs-wayland~.
+
+#+begin_src emacs-lisp
+
+  (when (executable-find "fcitx5")
+   (use-package fcitx
+     :ensure t
+     :config
+     (setq fcitx-use-dbus 'fcitx5)
+     (setq fcitx-remote-command "fcitx5-remote")
+     (fcitx-default-setup)))
+
+#+end_src
+
+* Performance
+
+#+begin_src emacs-lisp :tangle ./early-init.el
+
+  ;; from https://www.reddit.com/r/emacs/comments/1jtja9s/comment/mlw3q7o/
+  
+  (defun restore-gc-cons-threshold ()
+    (setq gc-cons-threshold (* 16 1024 1024)
+  	gc-cons-percentage 0.1))
+
+  (setq gc-cons-threshold most-positive-fixnum
+        gc-cons-percentage 0.6)
+  (add-hook 'emacs-startup-hook #'restore-gc-cons-threshold 105)
+    
+#+end_src
