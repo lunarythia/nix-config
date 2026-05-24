@@ -1,0 +1,3 @@
+[submodule "config/ambermacs"]
+	path = config/ambermacs
+	url = git@github.com:/lunarythia/ambermacs.git
