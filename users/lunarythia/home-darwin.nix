@@ -8,7 +8,19 @@
 
   home.packages = with pkgs; [
     dockutil # for managing persistent apps on dock
+    pinentry_mac
   ];
+
+  programs = {
+    gpg.enable = true;
+  };
+
+  services = {
+    gpg-agent = {
+      enable = true;
+      pinentry.package = pkgs.pinentry_mac;
+    };
+  };
 
   targets.darwin.defaults = {
     "com.apple.dock" = {
