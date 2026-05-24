@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+
+      ../../users/lunarythia/default.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -75,16 +77,6 @@ boot.loader = {
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-users.users.lunarythia = {
-  isNormalUser = true;
-  extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  packages = with pkgs; [
-    tree
-  ];
-openssh.authorizedKeys.keys = [
-"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII9ENknBGbeJ9bDpVpbA5eWeMjC86D+HzVJVGrcdW346 lunarythiamaia@proton.me"
-];
-};
 
  programs = {
 	hyprland = {

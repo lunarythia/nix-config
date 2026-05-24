@@ -21,7 +21,7 @@
 						home-manager = {
 						useGlobalPkgs = true;
 						useUserPackages = true;
-						users.lunarythia = import ./home.nix;
+						users.lunarythia = import ./users/lunarythia/home.nix;
 						backupFileExtension = "backup";
 					};
 				}
