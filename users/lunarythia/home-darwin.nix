@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  imports = [ ./darwin/dock.nix ];
+  imports = [ ./../../modules/darwin/dock.nix ];
   
   home.username = "amberwing";
   home.homeDirectory = lib.mkForce "/Users/amberwing";
