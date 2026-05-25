@@ -9,6 +9,7 @@
   home.packages = with pkgs; [
     dockutil # for managing persistent apps on dock
     pinentry_mac
+    localsend
   ];
 
   programs = {
