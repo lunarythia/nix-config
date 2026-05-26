@@ -25,6 +25,7 @@
 
   targets.darwin.defaults = {
     "com.apple.dock" = {
+      magnification = false;
       autohide = true;
       tilesize = 50;
     };
