@@ -11,6 +11,7 @@
     pinentry_mac
     obsidian
     localsend
+    thunderbird
   ];
 
   programs = {
