@@ -3,6 +3,7 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs;
     [
+      nixd # lsp server for Nix
     ];
 
   # Necessary for using flakes on this system.

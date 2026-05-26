@@ -91,6 +91,7 @@ boot.loader = {
 environment.systemPackages = with pkgs; [
   nvd
   vim-full # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  nixd # lsp server for Nix
   wget
   git
   kitty
