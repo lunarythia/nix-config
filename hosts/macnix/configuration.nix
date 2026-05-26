@@ -3,6 +3,7 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs;
     [
+      coreutils # needed for `dired` in emacs
       nixd # lsp server for Nix
     ];
 
@@ -29,10 +30,8 @@
       cleanup = "zap";
     };
     brews = [
-      "coreutils" # needed for `dired` in emacs
     ];
     casks = [
-      "emacs-app"
     ];
   };
 

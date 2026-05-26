@@ -7,6 +7,7 @@
   home.stateVersion = "25.11";
 
   home.packages = with pkgs; [
+    emacs
     dockutil # for managing persistent apps on dock
     pinentry_mac
     obsidian
@@ -35,14 +36,16 @@
 
   local.dock = {
     enable = true;
-    entries = [
+    entries = let
+      hm = "~/Applications/Home Manager Apps";
+    in [
       { path = "/System/Applications/Apps.app"; }
       { path = "/Applications/Firefox.app"; }
       { path = "/System/Applications/Utilities/Terminal.app"; }
-      { path = "~/Applications/Home Manager Apps/Obsidian.app"; }
-      { path = "/Applications/Emacs.app"; }
+      { path = "${hm}/Obsidian.app"; }
+      { path = "${hm}/Emacs.app"; }
       { path = "/Applications/Discord.app"; }
-      { path = "/Applications/Thunderbird.app"; }
+      { path = "${hm}/Thunderbird.app"; }
 
       {
         path = "~/Downloads/";
