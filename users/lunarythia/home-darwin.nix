@@ -9,6 +9,7 @@
   home.packages = with pkgs; [
     dockutil # for managing persistent apps on dock
     pinentry_mac
+    obsidian
     localsend
   ];
 
@@ -37,7 +38,7 @@
       { path = "/System/Applications/Apps.app"; }
       { path = "/Applications/Firefox.app"; }
       { path = "/System/Applications/Utilities/Terminal.app"; }
-      { path = "/Applications/Obsidian.app"; }
+      { path = "~/Applications/Home Manager Apps/Obsidian.app"; }
       { path = "/Applications/Emacs.app"; }
       { path = "/Applications/Discord.app"; }
       { path = "/Applications/Thunderbird.app"; }
