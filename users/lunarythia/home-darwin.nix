@@ -1,6 +1,9 @@
 { config, lib, pkgs, ... }:
 {
-  imports = [ ./../../modules/darwin/dock.nix ];
+  imports = [
+    ./../../modules/darwin/dock.nix
+    ./modules
+  ];
   
   home.username = "amberwing";
   home.homeDirectory = lib.mkForce "/Users/amberwing";
@@ -16,6 +19,7 @@
   ];
 
   programs = {
+    firefox.enable = true;
     gpg.enable = true;
   };
 
@@ -40,7 +44,7 @@
       hm = "~/Applications/Home Manager Apps";
     in [
       { path = "/System/Applications/Apps.app"; }
-      { path = "/Applications/Firefox.app"; }
+      { path = "${hm}/Firefox.app"; }
       { path = "/System/Applications/Utilities/Terminal.app"; }
       { path = "${hm}/Obsidian.app"; }
       { path = "${hm}/Emacs.app"; }

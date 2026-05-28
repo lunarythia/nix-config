@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 
 let
-dotfiles = "${config.home.homeDirectory}/nixos-dotfiles/config";
-create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
-configs = {
+  dotfiles = "${config.home.homeDirectory}/nix-config/config";
+  create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
+  configs = {
     ambermacs = "ambermacs";
     chemacs = "chemacs";
     emacs = "emacs";
@@ -12,6 +12,10 @@ configs = {
     rofi = "rofi";
     waybar = "waybar";
 }; in {
+  imports = [
+    ./modules
+  ];
+  
     home.username = "lunarythia";
     home.homeDirectory = "/home/lunarythia";
     home.stateVersion = "25.11";
@@ -45,6 +49,10 @@ configs = {
     ];
 
     programs = {
+      firefox = {
+        enable = true;
+        configPath = "${config.xdg.configHome}/mozilla/firefox";
+      };
 	git = {
 	    enable = true;
 	    settings = {

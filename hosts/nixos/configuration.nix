@@ -83,7 +83,6 @@ boot.loader = {
 		enable = true;
 		xwayland.enable = true;
 	};
-	firefox.enable = true;
 };
 
   # List packages installed in system profile.
