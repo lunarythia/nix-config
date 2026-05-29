@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 
 let
   dotfiles = "${config.home.homeDirectory}/nix-config/config";
@@ -13,6 +13,8 @@ let
     waybar = "waybar";
 }; in {
   imports = [
+    inputs.sops-nix.homeManagerModules.sops
+    
     ./modules
   ];
   
@@ -80,5 +82,18 @@ let
 	source = create_symlink "${dotfiles}/${subpath}";
 	recursive = true;
     }) configs;
+
+    sops = {
+      age = {
+        sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
+      };
+
+      secrets = {
+        ff-bookmarks = {
+          format = "binary";
+          sopsFile = ./modules/firefox/bookmarks.html;
+        };
+      };
+  };
 }
 

@@ -1,0 +1,12 @@
+keys:
+  - &users:
+    - &lunarythia_nix-vm age1c9pxvv83dz30dldne0jh52anmca6jwyu02lnjapg5yd4utfk243sy4rgal
+    - &amberwing_macnix age1vf5jaxq32p6j0wtrsaxg87ghyquwwcealpq3aru2usjrldm8dfyqs22wnz
+  - &hosts:
+    - &nix-vm age1um5je8tvawgvc0e5j592mpaxhqsrc3eqa0wpnhnn9zqvn46h5smsgt7d4g
+creation_rules:
+  - path_regex: users/lunarythia/modules/firefox/bookmarks.html$
+    key_groups:
+      - age:
+        - *lunarythia_nix-vm
+        - *amberwing_macnix

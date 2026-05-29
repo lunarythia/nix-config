@@ -1,6 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 {
   imports = [
+    inputs.sops-nix.homeManagerModules.sops
+    
     ./../../modules/darwin/dock.nix
     ./modules
   ];
@@ -58,4 +60,16 @@
       }
     ];
   };
+    sops = {
+      age = {
+        keyFile = "${config.home.homeDirectory}/.config/sops-nix/key.txt";
+      };
+
+      secrets = {
+        ff-bookmarks = {
+          format = "binary";
+          sopsFile = ./modules/firefox/bookmarks.html;
+        };
+      };
+    };
 }

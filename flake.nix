@@ -12,6 +12,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 	};
 
 	outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, ... }@inputs: {
@@ -26,10 +30,12 @@
 					home-manager = {
 						useGlobalPkgs = true;
 						useUserPackages = true;
+            extraSpecialArgs = { inherit inputs; };
 						users.lunarythia = import ./users/lunarythia/home.nix;
 						backupFileExtension = "backup";
 					};
 				}
+        inputs.sops-nix.nixosModules.sops
 			];
 		};
 
@@ -54,10 +60,12 @@
 					home-manager = {
 						useGlobalPkgs = true;
 						useUserPackages = true;
+            extraSpecialArgs = { inherit inputs; };
 						users.amberwing = import ./users/lunarythia/home-darwin.nix;
 						backupFileExtension = "backup";
 					};
 				}
+        inputs.sops-nix.darwinModules.sops
       ];
     };
 	};

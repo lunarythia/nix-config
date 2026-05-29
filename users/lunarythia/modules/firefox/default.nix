@@ -5,7 +5,7 @@ with lib;
     programs.firefox = {
       profiles.default = {
         settings = {
-          "browser.bookmarks.file" = "${./bookmarks.html}";
+          "browser.bookmarks.file" = config.sops.secrets.ff-bookmarks.path;
           "browser.places.importBookmarksHTML" = true;
 
           "browser.newtabpage.activity-stream.feeds.topsites" = false;
