@@ -30,6 +30,11 @@
       cleanup = "zap";
     };
     brews = [
+      # for emacs pdf-tools
+      "pkg-config"
+      "poppler"
+      "autoconf"
+      "automake"
     ];
     casks = [
     ];
