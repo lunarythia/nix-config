@@ -1,9 +1,55 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 {
   config = mkIf config.programs.firefox.enable {
     programs.firefox = {
       profiles.default = {
+        search = {
+          force = true;
+          default = "ddg";
+          engines = {
+            amazondotcom-us.metaData.hidden = true;
+            bing.metaData.hidden = true;
+            ebay.metaData.hidden = true;
+            perplexity.metaData.hidden = true;
+
+            nix-options = {
+              name = "Nix Options";
+              urls = [{
+                template = "https://search.nixos.org/options";
+                params = [
+                  { name = "type"; value = "packages"; }
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "@no" ];
+            };
+
+            nix-packages = {
+              name = "Nix Packages";
+              urls = [{
+                template = "https://search.nixos.org/packages";
+                params = [
+                  { name = "type"; value = "packages"; }
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "@np" ];
+            };
+
+            nixos-wiki = {
+              name = "NixOS Wiki";
+              urls = [{ template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; }];
+              iconMapObj."16" = "https://wiki.nixos.org/favicon.ico";
+              definedAliases = [ "@nw" ];
+            };
+          };
+        };
+
         settings = {
           "browser.bookmarks.file" = config.sops.secrets.ff-bookmarks.path;
           "browser.places.importBookmarksHTML" = true;
