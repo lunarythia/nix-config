@@ -11,89 +11,90 @@ let
     hypr = "hypr";
     rofi = "rofi";
     waybar = "waybar";
-}; in {
+  };
+in {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
     
     ./modules
   ];
   
-    home.username = "lunarythia";
-    home.homeDirectory = "/home/lunarythia";
-    home.stateVersion = "25.11";
-    programs.bash = {
-	enable = true;
-	shellAliases = {
-            meow = "echo meow meow meow :3";
-        };
-	sessionVariables = {
+  home.username = "lunarythia";
+  home.homeDirectory = "/home/lunarythia";
+  home.stateVersion = "25.11";
+  programs.bash = {
+	  enable = true;
+	  shellAliases = {
+      meow = "echo meow meow meow :3";
+    };
+	  sessionVariables = {
 	    GPG_TTY = "$(tty)";
-	};
-        initExtra = ''
+	  };
+    initExtra = ''
         PS1='\[\033[1;32m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\$\[\033[0m\] '
         '';
+  };
+
+  home.packages = with pkgs; [
+    pinentry-gnome3
+	  gcr # required for pinentry-gnome3
+
+	  emacs
+	  kdePackages.kate
+	  keepassxc
+	  rofi
+
+	  # fonts
+    noto-fonts
+    fira-code
+    paratype-pt-sans
+    roboto-slab
+  ];
+
+  programs = {
+    firefox = {
+      enable = true;
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
     };
-
-    home.packages = with pkgs; [
-        pinentry-gnome3
-	gcr # required for pinentry-gnome3
-
-	emacs
-	kdePackages.kate
-	keepassxc
-	rofi
-
-	# fonts
-        noto-fonts
-        fira-code
-        paratype-pt-sans
-        roboto-slab
-    ];
-
-    programs = {
-      firefox = {
-        enable = true;
-        configPath = "${config.xdg.configHome}/mozilla/firefox";
-      };
-	git = {
+	  git = {
 	    enable = true;
 	    settings = {
-	    	     user.name = "lunarythia";
-		     user.email = "63614345+lunarythia@users.noreply.github.com";
+	    	user.name = "lunarythia";
+		    user.email = "63614345+lunarythia@users.noreply.github.com";
 	    };
-	};
-	home-manager.enable = true;
-	waybar.enable = true;
+	  };
+	  home-manager.enable = true;
+	  waybar.enable = true;
 
-	gpg.enable = true;
+	  gpg.enable = true;
+  };
+
+  home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ"; 
+
+  services = {
+	  hyprpaper.enable = true;
+	  gpg-agent = {
+	    enable = true;
+	    pinentry.package = pkgs.pinentry-gnome3;
+	  };
+  };
+  
+  xdg.configFile = builtins.mapAttrs (name: subpath: {
+	  source = create_symlink "${dotfiles}/${subpath}";
+	  recursive = true;
+  }) configs;
+
+  sops = {
+    age = {
+      sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
     };
 
-    home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ"; 
-
-    services = {
-	hyprpaper.enable = true;
-	gpg-agent = {
-	      enable = true;
-	      pinentry.package = pkgs.pinentry-gnome3;
-	};
+    secrets = {
+      ff-bookmarks = {
+        format = "binary";
+        sopsFile = ./modules/firefox/bookmarks.html;
+      };
     };
-    
-    xdg.configFile = builtins.mapAttrs (name: subpath: {
-	source = create_symlink "${dotfiles}/${subpath}";
-	recursive = true;
-    }) configs;
-
-    sops = {
-      age = {
-        sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
-      };
-
-      secrets = {
-        ff-bookmarks = {
-          format = "binary";
-          sopsFile = ./modules/firefox/bookmarks.html;
-        };
-      };
   };
 }
 

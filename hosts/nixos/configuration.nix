@@ -13,26 +13,26 @@
     ];
 
   # Use the GRUB 2 boot loader.
-#  boot.loader.grub.enable = true;
-#  boot.loader.grub.efi.canTouchEfiVariables = false;
-#  boot.loader.grub.efiSupport = true;
-#  boot.loader.grub.efiInstallAsRemovable = true;
-#  boot.loader.efi.efiSysMountPoint = "/boot";
+  #  boot.loader.grub.enable = true;
+  #  boot.loader.grub.efi.canTouchEfiVariables = false;
+  #  boot.loader.grub.efiSupport = true;
+  #  boot.loader.grub.efiInstallAsRemovable = true;
+  #  boot.loader.efi.efiSysMountPoint = "/boot";
   # Define on which hard drive you want to install Grub.
-#  boot.loader.grub.device = "nodev"; # or "nodev" for efi only
+  #  boot.loader.grub.device = "nodev"; # or "nodev" for efi only
 
-boot.loader = {
-	efi = {
-#		canTouchEfiVariables = true;
-		efiSysMountPoint = "/boot";
-	};
-	grub = {
-		enable = true;
-		efiSupport = true;
-		efiInstallAsRemovable = true;
-		device = "nodev";
-              };
-};
+  boot.loader = {
+	  efi = {
+      #		canTouchEfiVariables = true;
+		  efiSysMountPoint = "/boot";
+	  };
+	  grub = {
+		  enable = true;
+		  efiSupport = true;
+		  efiInstallAsRemovable = true;
+		  device = "nodev";
+    };
+  };
 
   networking.hostName = "lunarythia-nix-vm"; # Define your hostname.
 
@@ -78,29 +78,29 @@ boot.loader = {
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
- programs = {
-	hyprland = {
-		enable = true;
-		xwayland.enable = true;
-	};
-};
+  programs = {
+	  hyprland = {
+		  enable = true;
+		  xwayland.enable = true;
+	  };
+  };
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
-environment.systemPackages = with pkgs; [
-  nvd
-  vim-full # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  nixd # lsp server for Nix
-  wget
-  git
-  kitty
-];
+  environment.systemPackages = with pkgs; [
+    nvd
+    vim-full # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    nixd # lsp server for Nix
+    wget
+    git
+    kitty
+  ];
 
-fonts.packages = with pkgs; [
-  nerd-fonts.jetbrains-mono
-];
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
 
-nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -114,9 +114,9 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Enable the OpenSSH daemon.
   services.openssh = {
-     enable = true;
-     authorizedKeysInHomedir = true;
-     settings.PasswordAuthentication = false;
+    enable = true;
+    authorizedKeysInHomedir = true;
+    settings.PasswordAuthentication = false;
   };
 
   # Open ports in the firewall.

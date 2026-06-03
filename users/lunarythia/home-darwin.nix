@@ -60,16 +60,16 @@
       }
     ];
   };
-    sops = {
-      age = {
-        keyFile = "${config.home.homeDirectory}/.config/sops-nix/key.txt";
-      };
+  sops = {
+    age = {
+      keyFile = "${config.home.homeDirectory}/.config/sops-nix/key.txt";
+    };
 
-      secrets = {
-        ff-bookmarks = {
-          format = "binary";
-          sopsFile = ./modules/firefox/bookmarks.html;
-        };
+    secrets = {
+      ff-bookmarks = {
+        format = "binary";
+        sopsFile = ./modules/firefox/bookmarks.html;
       };
     };
+  };
 }
