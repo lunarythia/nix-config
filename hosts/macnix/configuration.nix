@@ -37,6 +37,8 @@
       "automake"
     ];
     casks = [
+      "anki"
+      "steam"
     ];
   };
 
