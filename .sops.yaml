@@ -1,7 +1,8 @@
 keys:
   - &users:
     - &lunarythia_nix-vm age1c9pxvv83dz30dldne0jh52anmca6jwyu02lnjapg5yd4utfk243sy4rgal
-    - &amberwing_macnix age1vf5jaxq32p6j0wtrsaxg87ghyquwwcealpq3aru2usjrldm8dfyqs22wnz
+    - &amberwing_macnix age1zl8n6vwza6u8q9z5tl8x0sa3n3kjgd30nmq3wqtwtqxnwxkmuejqkku6ad
+    - &lunarythia_terra age1d024uc22mz0cnu4kpjj2xg2ardaqssew7ztqawrvqdpe8lgeae0sd82kg8
   - &hosts:
     - &nix-vm age1um5je8tvawgvc0e5j592mpaxhqsrc3eqa0wpnhnn9zqvn46h5smsgt7d4g
 creation_rules:
@@ -10,3 +11,4 @@ creation_rules:
       - age:
         - *lunarythia_nix-vm
         - *amberwing_macnix
+        - *lunarythia_terra
