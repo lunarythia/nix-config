@@ -5,10 +5,10 @@ keys:
     - &lunarythia_terra age1d024uc22mz0cnu4kpjj2xg2ardaqssew7ztqawrvqdpe8lgeae0sd82kg8
   - &hosts:
     - &nix-vm age1um5je8tvawgvc0e5j592mpaxhqsrc3eqa0wpnhnn9zqvn46h5smsgt7d4g
-creation_rules:
-  - path_regex: users/lunarythia/modules/firefox/bookmarks.html$
-    key_groups:
-      - age:
-        - *lunarythia_nix-vm
-        - *amberwing_macnix
-        - *lunarythia_terra
+# creation_rules:
+#  - path_regex: users/lunarythia/modules/firefox/bookmarks.html$
+#    key_groups:
+#      - age:
+#        - *lunarythia_nix-vm
+#        - *amberwing_macnix
+#        - *lunarythia_terra

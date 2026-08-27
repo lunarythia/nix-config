@@ -1,7 +1,7 @@
 { config, inputs, pkgs, ... }:
 
 let
-  dotfiles = "${config.home.homeDirectory}/nix-config/config";
+  dotfiles = "${config.home.homeDirectory}/nix-config/users/lunarythia/config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
   configs = {
     ambermacs = "ambermacs";
@@ -11,17 +11,22 @@ let
     hypr = "hypr";
     rofi = "rofi";
     waybar = "waybar";
+    wlogout = "wlogout";
   };
 in {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
     
     ./modules
+    ../../modules/theme/dark-mode.nix
   ];
   
   home.username = "lunarythia";
   home.homeDirectory = "/home/lunarythia";
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
+
+  modules.theme.darkMode.enable = true;
+  
   programs.bash = {
 	  enable = true;
 	  shellAliases = {
@@ -36,15 +41,22 @@ in {
   };
 
   home.packages = with pkgs; [
+    discord
+    
     pinentry-gnome3
 	  gcr # required for pinentry-gnome3
 
 	  emacs
 	  kdePackages.kate
 	  keepassxc
-	  rofi
 
+
+    rofi
+    grimblast
+    pwvucontrol
+    
 	  # fonts
+    nerd-fonts.noto
     noto-fonts
     fira-code
     paratype-pt-sans
@@ -77,13 +89,20 @@ in {
 	    enable = true;
 	    pinentry.package = pkgs.pinentry-gnome3;
 	  };
+    syncthing.enable = true;
   };
-  
+
   xdg.configFile = builtins.mapAttrs (name: subpath: {
 	  source = create_symlink "${dotfiles}/${subpath}";
 	  recursive = true;
   }) configs;
 
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+    setSessionVariables = true;
+  };
+  
   sops = {
     age = {
       sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];

@@ -16,6 +16,10 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 	};
 
 	outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, ... }@inputs: {
@@ -23,6 +27,26 @@
 			system = "x86_64-linux";
 			modules = [
 				./hosts/nixos/configuration.nix
+				{
+					nixpkgs.config.allowUnfree = true;
+				}
+				home-manager.nixosModules.home-manager {
+					home-manager = {
+						useGlobalPkgs = true;
+						useUserPackages = true;
+            extraSpecialArgs = { inherit inputs; };
+						users.lunarythia = import ./users/lunarythia/home.nix;
+						backupFileExtension = "backup";
+					};
+				}
+        inputs.sops-nix.nixosModules.sops
+			];
+		};
+		nixosConfigurations.terra = nixpkgs.lib.nixosSystem {
+			system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+			modules = [
+				./hosts/terra/configuration.nix
 				{
 					nixpkgs.config.allowUnfree = true;
 				}

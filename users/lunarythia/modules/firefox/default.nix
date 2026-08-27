@@ -51,8 +51,8 @@ with lib;
         };
 
         settings = {
-          "browser.bookmarks.file" = config.sops.secrets.ff-bookmarks.path;
-          "browser.places.importBookmarksHTML" = true;
+          # "browser.bookmarks.file" = config.sops.secrets.ff-bookmarks.path;
+          # "browser.places.importBookmarksHTML" = true;
 
           "browser.newtabpage.activity-stream.feeds.topsites" = false;
           "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
