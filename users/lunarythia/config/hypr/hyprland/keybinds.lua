@@ -77,10 +77,10 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 
 -- Global keybinds
 hl.bind("Control_R", hl.dsp.pass({ window = "class:^(discord)$" }),
-	{ release = true, ignore_mods = true, submap_universal = true })
+	{ release = true, non_consuming = true, ignore_mods = true, submap_universal = true })
 hl.bind("Alt_L", hl.dsp.pass({ window = "class:^(discord)$" }),
-	{ release = true, ignore_mods = true, submap_universal = true })
+	{ release = true, non_consuming = true, ignore_mods = true, submap_universal = true })
 hl.bind("Control_R", hl.dsp.pass({ window = "class:^(discord)$" }),
-	{ ignore_mods = true, submap_universal = true })
+	{ non_consuming = true, ignore_mods = true, submap_universal = true })
 hl.bind("Alt_L", hl.dsp.pass({ window = "class:^(discord)$" }),
-	{ ignore_mods = true, submap_universal = true })
+	{ non_consuming = true, ignore_mods = true, submap_universal = true })
