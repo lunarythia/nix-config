@@ -38,6 +38,7 @@
     kernelParams = [
       "intel_idle.max_cstate=2"
     ];
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   hardware.enableAllFirmware = true;
