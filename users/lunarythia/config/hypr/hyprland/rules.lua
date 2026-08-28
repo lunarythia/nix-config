@@ -54,7 +54,7 @@ hl.window_rule({
 
 hl.window_rule({
     name = "gi",
-    match = { class = "^genshinimpact.exe$" },
+    match = { class = "^steam_proton$", title = "^Genshin Impact$" },
     fullscreen = true
 })
 
