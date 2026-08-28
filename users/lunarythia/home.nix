@@ -59,6 +59,7 @@ in {
     nerd-fonts.noto
     noto-fonts
     fira-code
+    font-awesome
     paratype-pt-sans
     roboto-slab
   ];
