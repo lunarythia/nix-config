@@ -155,6 +155,27 @@
   # accidentally delete configuration.nix.
   # system.copySystemConfiguration = true;
 
+  # https://wiki.nixos.org/wiki/NVIDIA
+  hardware.graphics.enable = true;
+  
+  services.xserver.videoDrivers = [
+    "modesetting"
+    "nvidia"
+  ];
+
+  hardware.nvidia = {
+    open = true;
+    prime = {
+      offload.enable = true;
+      
+      intelBusId = "PCI:0@0:2:0";
+      nvidiaBusId = "PCI:1@0:0:0";
+      # amdgpuBusId = "PCI:5@0:0:0"; # If you have an AMD iGPU
+    };
+    modesetting.enable = true;
+  };
+
+  
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #
