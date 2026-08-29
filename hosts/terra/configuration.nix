@@ -120,6 +120,7 @@
     wlogout
 
     sof-firmware
+    qt6.qtwayland
   ];
 
   fonts.packages = with pkgs; [
