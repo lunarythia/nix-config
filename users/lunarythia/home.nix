@@ -9,6 +9,8 @@ let
     emacs = "emacs";
     kitty = "kitty";
     hypr = "hypr";
+    niri = "niri";
+    noctalia = "noctalia";
     rofi = "rofi";
     waybar = "waybar";
     wlogout = "wlogout";

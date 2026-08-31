@@ -1,0 +1,165 @@
+config_version = 13
+
+[bar.default]
+background_opacity = 0.0
+capsule = true
+capsule_fill = "surface"
+capsule_padding = 10.0
+end = [ "tray", "group:g1", "session" ]
+margin_edge = 4
+margin_ends = 0
+padding = 10
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    enabled = true
+    fill = "surface"
+    id = "g1"
+    members = [ "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center" ]
+    opacity = 1.0
+    padding = 10.0
+
+[location]
+auto_locate = true
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [ "lockscreen-login-box@winit", "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 768.0
+    cy = 654.0
+    output = "eDP-1"
+    placement_height = 864.0
+    placement_width = 1536.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = false
+        show_session_buttons = true
+        show_unlock_hint = false
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@winit"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 469.0
+    cy = 834.0
+    output = "winit"
+    placement_height = 1016.0
+    placement_width = 938.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@winit".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[osd.kinds]
+media = false
+
+[shell]
+niri_overview_type_to_launch_enabled = true
+polkit_agent = true
+
+    [shell.panel]
+    clipboard_position = "auto"
+    control_center_placement = "floating"
+    launcher_position = "auto"
+    open_near_click_clipboard = true
+    open_near_click_control_center = true
+    open_near_click_launcher = true
+    open_near_click_session = true
+    open_near_click_wallpaper = true
+    polkit_position = "auto"
+    session_placement = "floating"
+    transparency_mode = "soft"
+    wallpaper_placement = "floating"
+
+    [[shell.session.actions]]
+    action = "lock"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "1"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "logout"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "2"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "lock_and_suspend"
+    countdown_seconds = 0.0
+    enabled = true
+    glyph = "moon"
+    shortcut = "3"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "reboot"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "4"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "shutdown"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "5"
+    variant = "destructive"
+
+[theme]
+builtin = "Noctalia"
+community_palette = "Oxocarbon"
+mode = "dark"
+source = "wallpaper"
+wallpaper_scheme = "vibrant"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "qt" ]
+    community_ids = [ "fcitx5" ]
+
+[wallpaper.default]
+path = "/nix/store/6xyarln9ly77jam0kqxi46cfks9flcfc-noctalia-5.0.0-beta.10/share/noctalia/assets/noctalia-wallpaper.png"
+
+[wallpaper.last]
+path = "/nix/store/6xyarln9ly77jam0kqxi46cfks9flcfc-noctalia-5.0.0-beta.10/share/noctalia/assets/noctalia-wallpaper.png"
+
+[widget.media]
+hide_when_no_media = true

@@ -101,6 +101,11 @@
 		  enable = true;
 		  xwayland.enable = true;
 	  };
+    niri.enable = true;
+    noctalia = {
+      enable = true;
+      recommendedServices.enable = true;
+    };
     anime-game-launcher.enable = true;
   };
 
@@ -119,6 +124,7 @@
     brightnessctl
     wlogout
 
+    xwayland-satellite
     sof-firmware
     qt6.qtwayland
   ];
