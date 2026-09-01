@@ -308,6 +308,11 @@ animations {
 // https://niri-wm.github.io/niri/Configuration:-Window-Rules
 
 layer-rule {
+        match namespace="^noctalia-backdrop$"
+        place-within-backdrop true
+}
+
+layer-rule {
     match namespace="noctalia-bar-[^\"]"
    background-effect {
     blur false
