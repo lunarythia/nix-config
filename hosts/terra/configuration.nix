@@ -83,7 +83,25 @@
     pulse.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    wireplumber.enable = true;
+    wireplumber = {
+      enable = true;
+      extraConfig = {
+        "01-always-process" = {
+          "monitor.alsa.rules" = [
+            {
+              matches = [
+                { "node.name" = "~alsa_input.*"; }
+              ];
+              actions = {
+                update-props = {
+                  "node.always-process"             = true;
+                };
+              };
+            }
+          ];
+        };
+      };
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -127,6 +145,7 @@
 
     xwayland-satellite
     sof-firmware
+    alsa-utils
     qt6.qtwayland
   ];
 
