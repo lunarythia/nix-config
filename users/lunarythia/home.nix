@@ -56,6 +56,7 @@ in {
     rofi
     grimblast
     pwvucontrol
+    kdePackages.qt6ct
     
 	  # fonts
     nerd-fonts.noto
