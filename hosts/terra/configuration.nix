@@ -167,9 +167,51 @@
   ];
 
   fonts.packages = with pkgs; [
+    noto-fonts
     nerd-fonts.jetbrains-mono
   ];
-
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      monospace = [
+        "DejaVu Sans Mono"
+        "Noto Sans Mono CJK TC"
+      ];
+      sansSerif = [
+        "DejaVu Sans"
+        "Noto Sans CJK TC"
+      ];
+      serif = [
+        "DejaVu Serif"
+        "Noto Serif CJK TC"
+      ];
+    };
+    # localConf = ''
+    # <?xml version="1.0"?>
+    # <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+    # <fontconfig>
+    #   <match target="pattern">
+    #     <test name="family"><string>sans-serif</string></test>
+    #     <edit name="family" mode="append" binding="strong">
+    #       <string>Noto Sans CJK TC</string>
+    #     </edit>
+    #   </match>
+    #   <match target="pattern">
+    #     <test name="family"><string>serif</string></test>
+    #     <edit name="family" mode="append" binding="strong">
+    #       <string>Noto Serif CJK TC</string>
+    #     </edit>
+    #   </match>
+    #   <match target="pattern">
+    #     <test name="family"><string>monospace</string></test>
+    #     <edit name="family" mode="append" binding="strong">
+    #       <string>Noto Sans Mono CJK TC</string>
+    #     </edit>
+    #   </match>
+    # </fontconfig>
+    # '';
+  };
+  
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
