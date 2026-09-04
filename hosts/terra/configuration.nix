@@ -155,6 +155,7 @@
     wget
     git
     kitty
+    ristretto
 
     brightnessctl
     wlogout
