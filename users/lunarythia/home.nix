@@ -53,6 +53,7 @@ in {
 	  keepassxc
 
 
+    adw-gtk3
     rofi
     grimblast
     pwvucontrol
@@ -87,6 +88,13 @@ in {
 
   home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ"; 
 
+  gtk = {
+    enable = true;
+    gtk3.enable = true;
+    gtk4.enable = true;
+    theme.name = "adw-gtk3";
+  };
+  
   services = {
 	  hyprpaper.enable = true;
 	  gpg-agent = {
