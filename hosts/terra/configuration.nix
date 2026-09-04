@@ -136,6 +136,13 @@
       recommendedServices.enable = true;
     };
     anime-game-launcher.enable = true;
+    thunar = {
+      enable = true;
+      plugins = with pkgs; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
+    };
   };
 
   # List packages installed in system profile.
@@ -148,8 +155,6 @@
     wget
     git
     kitty
-    thunar
-    thunar-archive-plugin
 
     brightnessctl
     wlogout
@@ -207,10 +212,14 @@
   # https://wiki.nixos.org/wiki/NVIDIA
   hardware.graphics.enable = true;
   
-  services.xserver.videoDrivers = [
+  services = {
+    tumbler.enable = true;
+    gvfs.enable = true;
+    xserver.videoDrivers = [
     "modesetting"
     "nvidia"
-  ];
+    ];
+  };
 
   hardware.nvidia = {
     open = true;
