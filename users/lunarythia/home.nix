@@ -48,7 +48,6 @@ in {
     pinentry-gnome3
 	  gcr # required for pinentry-gnome3
 
-	  emacs
 	  kdePackages.kate
 	  keepassxc
 
@@ -68,6 +67,17 @@ in {
   ];
 
   programs = {
+    emacs = {
+      enable = true;
+      package = pkgs.emacs-pgtk;
+      extraPackages = epkgs: with epkgs; [
+        # https://mort.io/blog/treesitting-emacs/
+        # https://wiki.nixos.org/wiki/Emacs
+        (treesit-grammars.with-grammars (p: with p; [
+          tree-sitter-kdl
+        ]))
+      ];
+    };
     firefox = {
       enable = true;
       configPath = "${config.xdg.configHome}/mozilla/firefox";
