@@ -1,6 +1,3 @@
-[submodule "config/ambermacs"]
-	path = users/lunarythia/config/ambermacs
-	url = git@github.com:/lunarythia/ambermacs.git
-[submodule "users/lunarythia/config/ambermacs"]
-	path = users/lunarythia/config/ambermacs
-	url = https://github.com/lunarythia/ambermacs.git
+[submodule "users/lunarythia/modules/emacs/ambermacs"]
+	path = users/lunarythia/modules/emacs/ambermacs
+	url = git@github.com:lunarythia/ambermacs.git

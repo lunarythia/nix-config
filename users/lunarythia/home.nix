@@ -4,9 +4,6 @@ let
   dotfiles = "${config.home.homeDirectory}/nix-config/users/lunarythia/config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
   configs = {
-    ambermacs = "ambermacs";
-    chemacs = "chemacs";
-    emacs = "emacs";
     kitty = "kitty";
     hypr = "hypr";
     niri = "niri";
@@ -27,6 +24,7 @@ in {
   home.homeDirectory = "/home/lunarythia";
   home.stateVersion = "26.05";
 
+  emacs.enable = true;
   modules.theme.darkMode.enable = true;
   
   programs.bash = {
@@ -67,17 +65,6 @@ in {
   ];
 
   programs = {
-    emacs = {
-      enable = true;
-      package = pkgs.emacs-pgtk;
-      extraPackages = epkgs: with epkgs; [
-        # https://mort.io/blog/treesitting-emacs/
-        # https://wiki.nixos.org/wiki/Emacs
-        (treesit-grammars.with-grammars (p: with p; [
-          tree-sitter-kdl
-        ]))
-      ];
-    };
     firefox = {
       enable = true;
       configPath = "${config.xdg.configHome}/mozilla/firefox";
