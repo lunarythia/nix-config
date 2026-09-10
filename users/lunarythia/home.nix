@@ -44,7 +44,7 @@ in {
     discord
     
     pinentry-gnome3
-	  gcr # required for pinentry-gnome3
+	  gcr_4 # required for pinentry-gnome3
 
 	  kdePackages.kate
 	  keepassxc
