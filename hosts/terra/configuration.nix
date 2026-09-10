@@ -154,6 +154,7 @@
     nixd # lsp server for Nix
     wget
     git
+    inkscape
     kitty
     ristretto
 
