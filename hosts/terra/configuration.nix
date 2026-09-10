@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
 
       ../../users/lunarythia/default.nix
+      ../../modules
 
       inputs.aagl.nixosModules.default
     ];
@@ -48,6 +49,10 @@
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
 
+  modules = {
+    printing.enable = true;
+  };
+  
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
