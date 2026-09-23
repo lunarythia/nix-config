@@ -6,11 +6,6 @@ let
   configs = {
     kitty = "kitty";
     hypr = "hypr";
-    niri = "niri";
-    noctalia = "noctalia";
-    rofi = "rofi";
-    waybar = "waybar";
-    wlogout = "wlogout";
   };
 in {
   imports = [
@@ -25,6 +20,7 @@ in {
   home.stateVersion = "26.05";
 
   luna.emacs.enable = true;
+  luna.niri.enable = true;
   modules.theme.darkMode.enable = true;
   
   programs.bash = {
@@ -55,7 +51,6 @@ in {
     texlab
 
     adw-gtk3
-    rofi
     grimblast
     pwvucontrol
     kdePackages.qt6ct
