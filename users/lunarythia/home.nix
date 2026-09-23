@@ -49,6 +49,10 @@ in {
 	  kdePackages.kate
 	  keepassxc
 
+    (lib.hiPrio biber) # prioritise nix biber of miktex biber because
+                       # the latter does not support nix properly.
+    miktex
+    texlab
 
     adw-gtk3
     rofi
