@@ -24,7 +24,7 @@ in {
   home.homeDirectory = "/home/lunarythia";
   home.stateVersion = "26.05";
 
-  emacs.enable = true;
+  luna.emacs.enable = true;
   modules.theme.darkMode.enable = true;
   
   programs.bash = {

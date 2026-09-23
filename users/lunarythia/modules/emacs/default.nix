@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.emacs;
+  cfg = config.luna.emacs;
 in {
-  options.emacs.enable = lib.mkEnableOption "Enable Emacs";
+  options.luna.emacs.enable = lib.mkEnableOption "Enable Emacs";
 
   config = lib.mkIf cfg.enable {
     programs.emacs = {
