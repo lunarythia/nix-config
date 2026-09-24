@@ -315,7 +315,7 @@ environment {
 // https://niri-wm.github.io/niri/Configuration:-Window-Rules
 
 layer-rule {
-    match namespace="rofi"
+    match namespace="rofi|logout_dialog"
    background-effect {
     blur true
     xray false
