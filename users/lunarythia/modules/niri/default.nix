@@ -7,9 +7,11 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      awww
       rofi
       wlogout
       waybar
+      waypaper
     ];
 
     xdg.configFile = lib.genAttrs [ "niri" "rofi" "waybar" "wlogout" ] (subpath: {

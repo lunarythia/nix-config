@@ -267,6 +267,7 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
+spawn-at-startup "waypaper" "--restore"
 spawn-at-startup "waybar"
 spawn-sh-at-startup "sleep 1; keepassxc --minimized"
 
