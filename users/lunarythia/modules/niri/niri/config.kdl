@@ -111,7 +111,7 @@ output "eDP-1" {
 // https://niri-wm.github.io/niri/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 8
+    gaps 6
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -258,7 +258,7 @@ layout {
         left 4
         right 4
         // top 4
-        bottom 4
+        bottom 2
     }
 }
 
