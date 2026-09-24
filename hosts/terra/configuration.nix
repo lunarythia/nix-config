@@ -47,13 +47,7 @@
   networking.hostName = "terra-nix"; # Define your hostname.
 
   # Configure network connections interactively with nmcli or nmtui.
-  networking = {
-    networkmanager = {
-      enable = true;
-      wifi.backend = "iwd";
-    };
-    wireless.iwd.enable = true;
-  };
+  networking.networkmanager.enable = true;
 
   modules = {
     printing.enable = true;

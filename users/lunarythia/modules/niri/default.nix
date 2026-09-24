@@ -7,7 +7,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      impala
       rofi
       wlogout
       waybar

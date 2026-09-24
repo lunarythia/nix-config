@@ -73,7 +73,7 @@
     "format-disconnected": "󰤠 No Network",
     "interval": 5,
     "tooltip": false,
-    "on-click": "~/.config/waybar/toggle_tui.sh impala"
+    "on-click": "~/.config/waybar/toggle_tui.sh nmtui"
   },
 "backlight": {
     "format": "{icon}\u00a0{percent}%",
