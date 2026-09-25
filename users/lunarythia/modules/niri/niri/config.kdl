@@ -113,6 +113,8 @@ layout {
     // Set gaps around windows in logical pixels.
     gaps 6
 
+background-color "transparent"
+        
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
     //   or right edge of the screen.
@@ -313,6 +315,11 @@ environment {
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Window-Rules
+
+layer-rule {
+        match namespace="awww-daemon"
+        place-within-backdrop true
+}
 
 layer-rule {
     match namespace="rofi|logout_dialog"
