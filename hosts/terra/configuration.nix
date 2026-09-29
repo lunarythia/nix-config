@@ -157,6 +157,7 @@
     git
     inkscape
     kitty
+    krita
     ristretto
 
     brightnessctl
