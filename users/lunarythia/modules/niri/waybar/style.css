@@ -2,9 +2,7 @@
   font-family: "Noto Sans Nerd Font Propo", "Font Awesome", "Meslo Nerd Font";
 /*  font-size: 10px; */
   min-height: 0;
-  padding-right: 2px;
-  padding-left: 2px;
-  padding-bottom: 0px;
+  padding: 0 2px;
 }
 
 #waybar {
