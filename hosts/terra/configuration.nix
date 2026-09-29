@@ -51,6 +51,7 @@
 
   modules = {
     printing.enable = true;
+    bluetooth.enable = true;
   };
   
   # Set your time zone.

@@ -8,6 +8,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       awww
+      bluetui
       rofi
       wlogout
       waybar
