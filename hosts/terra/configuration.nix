@@ -236,6 +236,7 @@
       addons = with pkgs; [
         fcitx5-chewing
         fcitx5-gtk
+        qt6Packages.fcitx5-chinese-addons
       ];
       waylandFrontend = true;
     };
