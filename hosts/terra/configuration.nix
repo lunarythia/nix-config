@@ -138,6 +138,20 @@
 	  };
     niri.enable = true;
     anime-game-launcher.enable = true;
+    obs-studio = {
+      enable = true;
+      package = (pkgs.obs-studio.override {
+          cudaSupport = true;
+      });
+      enableVirtualCamera = true;
+        plugins = with pkgs.obs-studio-plugins; [
+                  wlrobs
+                  obs-backgroundremoval
+                  obs-pipewire-audio-capture
+                  obs-gstreamer
+                  obs-vkcapture
+                ];
+    };
     thunar = {
       enable = true;
       plugins = with pkgs; [
