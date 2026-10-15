@@ -38,6 +38,7 @@ in {
 
   home.packages = with pkgs; [
     discord
+    obsidian
     
     pinentry-gnome3
 	  gcr_4 # required for pinentry-gnome3
