@@ -139,6 +139,7 @@ services.flatpak.enable = true;
 	  };
     niri.enable = true;
     anime-game-launcher.enable = true;
+    honkers-railway-launcher.enable = true;
     obs-studio = {
       enable = true;
       package = (pkgs.obs-studio.override {
