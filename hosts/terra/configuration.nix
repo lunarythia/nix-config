@@ -240,6 +240,8 @@ services.flatpak.enable = true;
       addons = with pkgs; [
         fcitx5-chewing
         fcitx5-gtk
+        inputs.self.packages."x86_64-linux".fcitx5-keyman
+        inputs.self.packages."x86_64-linux".keyman-config
         qt6Packages.fcitx5-chinese-addons
       ];
       waylandFrontend = true;

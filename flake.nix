@@ -97,5 +97,22 @@
         inputs.sops-nix.darwinModules.sops
       ];
     };
+
+    packages = let
+      forAllSystems = function:
+        nixpkgs.lib.genAttrs [
+          "x86_64-linux"
+          "aarch64-linux"
+          # "x86_64-darwin"
+          # "aarch64-darwin"
+        ] (system: function system nixpkgs.legacyPackages.${system});
+    in
+      forAllSystems (system: pkgs: {
+        fcitx5-keyman = pkgs.callPackage ./pkgs/fcitx5-keyman.nix {
+          keyman-core = self.packages.${system}.keyman-core;
+        };
+        keyman-config = pkgs.callPackage ./pkgs/keyman-config.nix {};
+        keyman-core = pkgs.callPackage ./pkgs/keyman-core.nix {};
+      });
 	};
 }
