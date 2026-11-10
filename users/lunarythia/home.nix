@@ -43,6 +43,7 @@ in {
     pinentry-gnome3
 	  gcr_4 # required for pinentry-gnome3
 
+    anki
 	  kdePackages.kate
 	  keepassxc
 
