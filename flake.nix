@@ -20,6 +20,11 @@
       url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    roblox = {
+      # url = "github:komaruworld/mocktail";
+      url = "github:CoderDayton/nightcap";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 	};
 
 	outputs = { self, nixpkgs, home-manager, nix-darwin, nix-homebrew, ... }@inputs: {

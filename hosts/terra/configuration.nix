@@ -175,6 +175,8 @@
     krita
     ristretto
 
+    inputs.roblox.packages.x86_64-linux.default
+    
     brightnessctl
 
     xwayland-satellite
