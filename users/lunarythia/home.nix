@@ -37,7 +37,7 @@ in {
   };
 
   home.packages = with pkgs; [
-    discord
+    vesktop # switch to vesktop until they fix issues
     obsidian
     
     pinentry-gnome3
