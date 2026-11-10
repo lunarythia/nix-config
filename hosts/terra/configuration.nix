@@ -91,22 +91,22 @@
     alsa.support32Bit = true;
     wireplumber = {
       enable = true;
-      extraConfig = {
-        "01-always-process" = {
-          "monitor.alsa.rules" = [
-            {
-              matches = [
-                { "node.name" = "~alsa_input.*"; }
-              ];
-              actions = {
-                update-props = {
-                  "node.always-process"             = true;
-                };
-              };
-            }
-          ];
-        };
-      };
+      # extraConfig = {
+      #   "01-always-process" = {
+      #     "monitor.alsa.rules" = [
+      #       {
+      #         matches = [
+      #           { "node.name" = "~alsa_input.*"; }
+      #         ];
+      #         actions = {
+      #           update-props = {
+      #             "node.always-process"             = true;
+      #           };
+      #         };
+      #       }
+      #     ];
+      #   };
+      # };
     };
   };
 
