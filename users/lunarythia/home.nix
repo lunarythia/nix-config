@@ -83,7 +83,13 @@ in {
 	  gpg.enable = true;
   };
 
-  home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ"; 
+  home.file.".icons/default".source = "${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ";
+
+  home.sessionVariables = {
+    "QT_IM_MODULE" = "fcitx";
+    "GTK_IM_MODULE" = "fcitx";
+    "XMODIFIERS" = "@im=fcitx";
+  };
 
   gtk = {
     enable = true;
